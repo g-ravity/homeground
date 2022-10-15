@@ -20,7 +20,7 @@
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": "tsconfig.json"
+    "project": "client/tsconfig.json"
   },
   "rules": {
     "react/jsx-filename-extension": [
