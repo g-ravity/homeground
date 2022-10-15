@@ -8,7 +8,7 @@ const prisma = new PrismaClient()
 const resolvers = {
 Query: {
     info: () => `This is a test query`,
-    feed: () => async (parent, args, context) => {
+    feed:  async (parent, args, context) => {
         const allLinks = await  context.prisma.link.findMany()
         console.log({allLinks})
         return allLinks

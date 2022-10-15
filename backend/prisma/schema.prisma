@@ -18,3 +18,51 @@ model Link {
   description String
   url         String
 }
+
+model User {
+  id            Int                     @id @default(autoincrement())
+  name          String
+  email         String
+  learningGoal  Int
+  currentStreak Int                     @default(0)
+  longestStreak Int                     @default(0)
+  xp            Int                     @default(0)
+  cohorts       UserCohortAssignments[]
+}
+
+model Course {
+  id          Int       @id @default(autoincrement())
+  name        String
+  tag         String
+  difficulty  String
+  slug        String
+  description String
+  sections    Section[]
+  cohorts     Cohort[]
+}
+
+model Section {
+  id              Int     @id @default(autoincrement())
+  sectionDuration String
+  title           String
+  lectureCount    Int
+  Course          Course? @relation(fields: [courseId], references: [id])
+  courseId        Int?
+}
+
+model Cohort {
+  id        Int                     @id @default(autoincrement())
+  startDate DateTime
+  endDate   DateTime
+  Course    Course                  @relation(fields: [courseId], references: [id])
+  courseId  Int
+  users     UserCohortAssignments[]
+}
+
+model UserCohortAssignments {
+  id       Int     @id @default(autoincrement())
+  User     User?   @relation(fields: [userId], references: [id])
+  userId   Int?
+  Cohort   Cohort? @relation(fields: [cohortId], references: [id])
+  cohortId Int?
+}
